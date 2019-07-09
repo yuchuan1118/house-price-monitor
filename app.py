@@ -131,8 +131,8 @@ def job():
     print(f'computing time: {(endtime - starttime).seconds} (sec)')
 
 
-# schedule.every().hour.at(':00').do(job)
-schedule.every().hour.at(':27').do(job)
+schedule.every().hour.at(':00').do(job)
+# schedule.every().hour.at(':27').do(job)
 # schedule.every().hour.do(job)
 
 # schedule.every().day.at("09:00").do(job)
