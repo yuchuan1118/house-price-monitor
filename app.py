@@ -113,13 +113,15 @@ def job():
 
     print(f'computing time: {(endtime - starttime).seconds} (sec)')
 
+schedule.every().hour.do(job)
+
 # schedule.every().day.at("09:00").do(job)
 # schedule.every().day.at("12:00").do(job)
 # schedule.every().day.at("15:00").do(job)
 # schedule.every().day.at("18:00").do(job)
 
 # schedule.every().day.at("00:00").do(job)
-schedule.every().day.at("15:17").do(job)
+# schedule.every().day.at("15:17").do(job)
 
 while True:
     schedule.run_pending()
