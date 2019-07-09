@@ -29,7 +29,16 @@ def job():
     # the first page 
     pageNow = 1
     url = f'http://aomp.judicial.gov.tw/abbs/wkw/WHD2A03.jsp?pageTotal=100&pageSize=15&rowStart=1&saletypeX=1&proptypeX=C52&courtX=TPD&order=odcrm&query_typeX=session&saleno=&hsimun={hsimun}&ctmd=all&sec=all&crmyy=&crmid=&crmno=&dpt=&saledate1=&saledate2=&minprice1={minprice1}&minprice2={minprice2}&sumprice1=&sumprice2=&area1={area1}&area2={area2}&registeno=&checkyn=all&emptyyn=all&order=odcrm&owner1=&landkd=&rrange=%A4%A3%A4%C0&comm_yn=&stopitem=&courtNoLimit=&pageNow={pageNow}'
-    res = requests.get(url)
+    
+    try:
+        res = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        print("Connection refused by the server..")
+        print("Let me sleep for 5 seconds")
+        print("ZZzzzz...")
+        time.sleep(5)
+        print("Was a nice sleep, now let me continue...")
+    
     soup = bs(res.text, 'html5lib')
     tb = soup.select('table')[2]
     df = pandas.read_html(tb.prettify(), header=0)[0]
@@ -41,7 +50,15 @@ def job():
     while True:
         # 2nd page, 3rd page, ...
         url = f'http://aomp.judicial.gov.tw/abbs/wkw/WHD2A03.jsp?pageTotal=100&pageSize=15&rowStart=1&saletypeX=1&proptypeX=C52&courtX=TPD&order=odcrm&query_typeX=session&saleno=&hsimun={hsimun}&ctmd=all&sec=all&crmyy=&crmid=&crmno=&dpt=&saledate1=&saledate2=&minprice1={minprice1}&minprice2={minprice2}&sumprice1=&sumprice2=&area1={area1}&area2={area2}&registeno=&checkyn=all&emptyyn=all&order=odcrm&owner1=&landkd=&rrange=%A4%A3%A4%C0&comm_yn=&stopitem=&courtNoLimit=&pageNow={pageNow}'
-        res = requests.get(url)
+        try:
+            res = requests.get(url)
+        except requests.exceptions.ConnectionError:
+            print("Connection refused by the server..")
+            print("Let me sleep for 5 seconds")
+            print("ZZzzzz...")
+            time.sleep(5)
+            print("Was a nice sleep, now let me continue...")
+            continue
         soup = bs(res.text, 'html5lib')
         tb = soup.select('table')[2]
         df_newpage = pandas.read_html(tb.prettify(), header=0)[0]
@@ -114,7 +131,8 @@ def job():
     print(f'computing time: {(endtime - starttime).seconds} (sec)')
 
 
-schedule.every().hour.at(':00').do(job)
+# schedule.every().hour.at(':00').do(job)
+schedule.every().hour.at(':27').do(job)
 # schedule.every().hour.do(job)
 
 # schedule.every().day.at("09:00").do(job)
