@@ -121,7 +121,7 @@ schedule.every().hour.do(job)
 # schedule.every().day.at("18:00").do(job)
 
 # schedule.every().day.at("00:00").do(job)
-schedule.every().day.at("11:39").do(job)
+schedule.every().day.at("03:42").do(job)
 
 while True:
     schedule.run_pending()
