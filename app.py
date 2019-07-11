@@ -22,6 +22,8 @@ minprice2 = ''
 hsimun = 'all'
 # hsimun = '%BBO%A5_%A5%AB' #台北市
 
+print('heroku run test!!!!!!!')
+
 def job():
     # computing time
     starttime = datetime.datetime.now()
